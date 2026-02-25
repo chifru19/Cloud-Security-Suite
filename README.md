@@ -37,7 +37,4 @@ git pull origin main
 # Add the image link to your README.md
 echo -e "\n### 📈 Pipeline Proof of Work\n![DevSecOps Success](./pipeline_success.jpg.png)" >> README.md
 
-# Push the updated README back to GitHub
-git add README.md
-git commit -m "DOCS: Embed success screenshot in README"
-git push origin main
+
