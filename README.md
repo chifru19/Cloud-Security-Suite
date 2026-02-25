@@ -35,6 +35,6 @@ This tool is designed to be run as a secure, isolated container.
 git pull origin main
 
 # Add the image link to your README.md
-echo -e "\n### 📈 Pipeline Proof of Work\n![DevSecOps Success](./pipeline_success.jpg.png)" >> README.md
+echo -e "\n### 📈 Pipeline Proof of Work\n![DevSecOps Success](./pipeline_success.jpg.png)"
 
 
