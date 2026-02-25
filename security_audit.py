@@ -1,24 +1,32 @@
-import subprocess
-import json
+import boto3
 
-def run_audit():
-    print("🚀 Starting Cloud Security Audit...")
+def run_remediation_audit():
+    # Connect to LocalStack (Mock AWS) instead of real AWS
+    s3 = boto3.client('s3', endpoint_url='http://localhost:4566', region_name='us-east-1')
     
-    # Check 1: Identity & Access Management (IAM)
-    print("[1/3] Checking IAM Users for MFA...")
-    # This simulates an AWS CLI call to check for MFA
-    print("✔️ PASS: MFA is enabled for root account (Simulated)")
+    print("🚀 Starting Real-Time Audit & Auto-Remediation...")
+    
+    try:
+        response = s3.list_buckets()
+        buckets = response.get('Buckets', [])
+        
+        if not buckets:
+            print("✅ No buckets found. Environment is clean.")
+            return
 
-    # Check 2: S3 Bucket Security
-    print("[2/3] Auditing S3 Buckets for Public Access...")
-    # In a real scenario, this would use 'boto3' to scan AWS
-    print("⚠️ WARNING: Bucket 'dev-logs' has public read access!")
-
-    # Check 3: Network Security
-    print("[3/3] Scanning Security Groups for Open Port 22...")
-    print("❌ FAIL: Security Group 'web-server' allows SSH from 0.0.0.0/0")
-
-    print("\n✅ Audit Complete. Summary: 1 Pass, 1 Warning, 1 Fail.")
+        for bucket in buckets:
+            name = bucket['Name']
+            # Security Logic: Flag any bucket with 'insecure' or 'public'
+            if "insecure" in name.lower() or "public" in name.lower():
+                print(f"❌ CRITICAL: Insecure bucket found: {name}")
+                print(f"🛠️  ACTION: Deleting insecure bucket to prevent data leak...")
+                s3.delete_bucket(Bucket=name)
+                print(f"✅ SUCCESS: {name} has been remediated.")
+            else:
+                print(f"🛡️  Bucket {name} passed security checks.")
+                
+    except Exception as e:
+        print(f"⚠️ Cloud Connection Error: {e}")
 
 if __name__ == "__main__":
-    run_audit()
+    run_remediation_audit()
