@@ -31,3 +31,13 @@ This tool is designed to be run as a secure, isolated container.
 
 2. **Run the automated scan:**
    `docker run --rm cloud-audit-tool`
+# Pull the image file you just uploaded to your local machine
+git pull origin main
+
+# Add the image link to your README.md
+echo -e "\n### 📈 Pipeline Proof of Work\n![DevSecOps Success](./pipeline_success.jpg.png)" >> README.md
+
+# Push the updated README back to GitHub
+git add README.md
+git commit -m "DOCS: Embed success screenshot in README"
+git push origin main
