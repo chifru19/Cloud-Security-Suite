@@ -36,5 +36,37 @@ git pull origin main
 
 # Add the image link to your README.md
 echo -e "\n### 📈 Pipeline Proof of Work\n![DevSecOps Success](./pipeline_success.jpg.png)"
+# 🛡️ Cloud-Security-Suite: Forensics, DevSecOps & CDR
 
+A professional-grade security repository demonstrating a complete pivot from **Network Forensics** to **Cloud Security Engineering**. This suite features real-time threat detection, automated self-healing cloud remediation, and hardened CI/CD pipelines.
+
+---
+
+## 🏗️ Project 1: Cloud-Native DevSecOps Pipeline
+**Focus:** Infrastructure-as-Code (IaC) Hardening & Supply Chain Security
+
+* **Security Guardrails:** Integrated **Checkov** into GitHub Actions to scan Terraform and Docker configurations for 19+ common vulnerabilities.
+* **Container Hardening:** Engineered a Dockerfile using non-root user execution and minimal base images to reduce the attack surface.
+* **Proof of Work:**
+![Pipeline Success](./pipeline_success.jpg.png)
+
+---
+
+## ☁️ Project 2: Real-Time Cloud Audit & Auto-Remediation
+**Focus:** Active Compliance & FinOps-Safe Automation
+
+* **Self-Healing Infrastructure:** Developed `security_audit.py` using **Boto3** to identify and automatically delete non-compliant S3 buckets in real-time.
+* **Zero-Cost Simulation:** Leveraged **LocalStack** to build and test cloud security tools in a fully isolated, mock AWS environment.
+* **Technical Achievement:** Automated the "Mean Time to Repair" (MTTR) by programmatically remediating misconfigurations without human intervention.
+
+---
+
+## 🚨 Project 3: Cloud Detection & Response (CDR)
+**Focus:** Intrusion Detection & Behavioral Analysis
+
+* **Custom IDS Engine:** Developed `cloud_detection.py` to monitor real-time API traffic and identify "Brute Force" or "Port Scanning" patterns.
+* **Rate-Limiting Alerts:** Implemented threshold-based logic that triggers a **CRITICAL** alert if more than 5 requests are detected in under 3 seconds.
+* **Live Detection Output:**
+```text
+🚨 CRITICAL ALERT: Rapid API activity detected! Possible Brute Force Attack.
 
