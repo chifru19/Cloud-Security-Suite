@@ -1,22 +1,23 @@
-# Use a lightweight Python base image
+# Step 1: Use a minimal, secure base image
 FROM python:3.9-slim-buster
 
-# Set the working directory inside the container
+# Step 2: Set a secure working directory
 WORKDIR /app
 
-# Install basic security tools and dependencies
+# Step 3: Install only essential security tools
+# We combine commands and clean the cache to keep the image small
 RUN apt-get update && apt-get install -y \
     nmap \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy your local scripts into the container
-# (Even if the folder is empty now, this sets up the structure)
+# Step 4: Copy project files (even if empty, this establishes the structure)
 COPY . /app
 
-# Create a non-privileged user for security best practices
-RUN useradd -m security-user
-USER security-user
+# Step 5: Security Hardening - Create and switch to a non-root user
+# This prevents attackers from gaining full control of the host if the app is breached
+RUN useradd -m frankfru-sec
+USER frankfru-sec
 
-# The command to run when the container starts
-CMD ["nmap", "-V"]
+# Step 6: Default command to verify the tool is working
+CMD ["nmap", "--version"]
