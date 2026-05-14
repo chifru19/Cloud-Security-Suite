@@ -1,0 +1,32 @@
+name: Cloud Security Suite CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Terraform Security Scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: projects/01-S3-Hardening
+          framework: terraform
+          quiet: true
+
+      - name: Docker Security Scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: projects/03-DevSecOps-CI-CD
+          framework: dockerfile
+
+      - name: Verify Build
+        run: |
+          cd projects/03-DevSecOps-CI-CD
+          docker build -t security-tool:latest .
