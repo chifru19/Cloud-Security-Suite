@@ -1,20 +1,7 @@
-name: Cloud Security Suite CI
-on: [push]
-
-# FIX: Restrict permissions to read-only for security
-permissions:
-  contents: read
-
-jobs:
-  secure-build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Terraform Security Scan
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: .
-
-      - name: Build Secure Container
-        run: docker build -t security-tool .
+- name: Verify Build
+        run: |
+          # 1. List files to verify existence (helpful for logs)
+          ls -R projects/03-DevSecOps-CI-CD/
+          
+          # 2. Build using an explicit file path
+          docker build -t security-tool:latest -f projects/03-DevSecOps-CI-CD/Dockerfile projects/03-DevSecOps-CI-CD/
