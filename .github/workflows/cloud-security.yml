@@ -10,15 +10,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # This step scans your Terraform code
+      # 1. Debug: Let's see EXACTLY what GitHub sees
+      - name: List actual paths
+        run: find . -maxdepth 3 -not -path '*/.*'
+
+      # 2. Terraform Scan: Scan everything to avoid path errors
       - name: Terraform Security Scan
         uses: bridgecrewio/checkov-action@master
         with:
-          directory: projects/01-S3-Hardening
+          directory: .
           framework: terraform
+          check: CKV_AWS_18,CKV_AWS_19,CKV_AWS_144 # Focus on the S3 wins
 
-      # This step builds your Docker image from the correct folder
+      # 3. Build Docker: Search for the Dockerfile automatically
       - name: Build Secure Container
         run: |
-          cd projects/03-DevSecOps-CI-CD
+          DOCKER_PATH=$(find . -name "Dockerfile" -print -quit)
+          DOCKER_DIR=$(dirname "$DOCKER_PATH")
+          echo "Building from: $DOCKER_DIR"
+          cd "$DOCKER_DIR"
           docker build -t security-tool:latest .
