@@ -1,8 +1,5 @@
 name: Cloud Security Suite CI
-
-on:
-  push:
-    branches: [ main ]
+on: [push]
 
 permissions:
   contents: read
@@ -11,22 +8,17 @@ jobs:
   secure-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Debugging: List files to confirm directory structure
-      - name: List Files
-        run: ls -R
-
+      # This step scans your Terraform code
       - name: Terraform Security Scan
         uses: bridgecrewio/checkov-action@master
         with:
-          # Pointing specifically to the S3 Hardening folder
           directory: projects/01-S3-Hardening
           framework: terraform
 
+      # This step builds your Docker image from the correct folder
       - name: Build Secure Container
         run: |
-          # Change directory to where the Dockerfile actually lives
           cd projects/03-DevSecOps-CI-CD
           docker build -t security-tool:latest .
