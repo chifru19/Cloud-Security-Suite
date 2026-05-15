@@ -1,5 +1,8 @@
 # Use a slim, secure base image
-FROM python:3.9-slim
+# Use a more stable, available slim image
+FROM python:3.9-slim-buster
+
+# ... keep the rest of your file as is ...
 
 # Set a working directory
 WORKDIR /app
