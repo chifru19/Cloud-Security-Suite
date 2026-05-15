@@ -1,2 +1,50 @@
-Cloud-Security-Suite: Forensics, DevSecOps & CDRA professional-grade security repository demonstrating a complete pivot from Network Forensics to Cloud Security Engineering. This suite features real-time threat detection, automated self-healing remediation, and hardened CI/CD pipelines.🏗️ Project 1: Cloud-Native DevSecOps PipelineFocus: Infrastructure-as-Code (IaC) Hardening & Supply Chain SecuritySecurity Guardrails: Integrated Checkov into GitHub Actions to scan Terraform configurations. Successfully remediated CKV_AWS_18 (Access Logging), CKV_AWS_144 (Cross-Region Replication), and CKV2_AWS_61 (Lifecycle Management).Container Hardening: Engineered Dockerfiles using non-root user execution and minimal base images to drastically reduce the attack surface.State Management: Resolved complex Terraform state locks and environment synchronization issues during multi-project deployments.☁️ Project 2: Real-Time Cloud Audit & Auto-RemediationFocus: Active Compliance & Automated Self-HealingSelf-Healing Infrastructure: Developed security_audit.py using Boto3 to identify and automatically remediate non-compliant S3 buckets in real-time.Zero-Cost Simulation: Leveraged LocalStack to build and test cloud security tools in an isolated, mock AWS environment, ensuring 100% test coverage without egress costs.Live Status: ✅ Audit Engine Active... Monitoring environment for drift.🚨 Project 3: Automated Cloud Detection & Response (CDR)Focus: Intrusion Detection & Behavioral AnalysisCustom IDS Engine: Developed cloud_detection.py to monitor real-time API traffic and identify "Brute Force" patterns using rate-limiting logic.Rapid Response: Script triggers a CRITICAL alert and executes an auto_remediate() function if more than 5 requests are detected in under 3 seconds.🛠️ Response TimelinePhaseActionResultDetectionScript identifies unauthorized request burstsTriggered in <1.7sResponseauto_remediate() function executesIntrusion HaltedRecoveryNon-compliant resources purged/isolatedEnvironment Secured🛠️ Tech StackCloud: AWS (S3, IAM, CloudWatch), LocalStackIaC: TerraformSecurity: Checkov, Boto3, GitHub ActionsLanguages: Python, HCL, Bash🚀 How to UseClone the Repo: ```bashgit clone https://github.com/chifru19/Cloud-Security-Suite.gitInitialize Environment: ```bashsource .venv/bin/activateRun Local Scans: ```bashcheckov -d security-projects/01-S3-Hardening/
-Contact: frankfru.com | GitHub: chifru19 | LinkedIn: [Your Profile]
+🛡️ Cloud Security & DevSecOps Suite
+An automated security auditing and remediation system for AWS S3 (simulated via LocalStack). This project demonstrates a full DevSecOps loop: Detect → Log → Visualize → Remediate.
+
+🚀 Features
+Automated Auditing: Python-based scanner checks for public S3 buckets.
+
+Real-time Dashboard: Streamlit UI for monitoring security drift and compliance.
+
+One-Click Remediation: Instant "Secure All" button to fix exposed infrastructure.
+
+Infrastructure as Code: Managed via Terraform and Docker Compose.
+
+🏗️ Quick Start
+Start the Environment:
+
+Bash
+docker-compose up -d
+Trigger a Manual Scan:
+
+Bash
+docker-compose run security-auditor python analyze.py
+View the Dashboard:
+Navigate to http://localhost:8501
+
+🛠️ Tech Stack
+Cloud: LocalStack (AWS Simulation)
+
+Database: PostgreSQL
+
+App: Streamlit (Python)
+
+Security: Boto3, TruffleHog (Secret Scanning)
+
+🛡️ Network-Guard-Forensics
+🚀 Security Hardening & CI/CD
+This project utilizes automated security auditing via Checkov to ensure a hardened, production-ready environment.
+
+Key Implementation Details:
+Vulnerability Remediation: Successfully resolved CKV_DOCKER_3 by transitioning from root execution to a dedicated, non-privileged appuser. This follows the Principle of Least Privilege, significantly reducing the attack surface.
+
+System Resilience: Implemented native Docker HEALTHCHECK instructions (CKV_DOCKER_2) to allow container orchestrators to automatically monitor and recover the analysis process.
+
+Infrastructure as Code (IaC) Auditing: Integrated security scanning into the GitHub Actions pipeline to catch misconfigurations in Terraform and Docker assets before deployment.
+
+📩 Contact & Portfolio
+Website: frankfru.com
+
+GitHub: chifru19
+
+LinkedIn: [Add Your Link Here]
