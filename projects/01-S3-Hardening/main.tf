@@ -30,7 +30,6 @@ resource "aws_s3_bucket_versioning" "versioning" {
 }
 
 # 4. Access Logging (Resolves CKV_AWS_18)
-# Requires a separate bucket to store the logs
 resource "aws_s3_bucket" "log_bucket" {
   bucket = "frankfru-logs-2026"
 }
@@ -42,11 +41,39 @@ resource "aws_s3_bucket_logging" "secure_logging" {
   target_prefix = "log/"
 }
 
-# 5. Cross-Region Replication (Resolves CKV_AWS_144)
-# Note: This is a high-level example. In a real environment, 
-# you would define a destination bucket in a different region.
+# 5. Lifecycle Configuration (Resolves CKV2_AWS_61)
+resource "aws_s3_bucket_lifecycle_configuration" "bucket_lifecycle" {
+  bucket = aws_s3_bucket.secure_bucket.id
+
+  rule {
+    id     = "archive-old-data"
+    status = "Enabled"
+
+    transition {
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+
+    expiration {
+      days = 90
+    }
+  }
+}
+
+# 6. Cross-Region Replication (Resolves CKV_AWS_144)
+# Destination bucket for replication
+resource "aws_s3_bucket" "destination" {
+  bucket = "frankfru-backup-2026"
+}
+
+resource "aws_s3_bucket_versioning" "dest_versioning" {
+  bucket = aws_s3_bucket.destination.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_replication_configuration" "replication" {
-  # Must enable versioning on both buckets for replication to work
   depends_on = [aws_s3_bucket_versioning.versioning]
 
   role   = aws_iam_role.replication_role.arn
