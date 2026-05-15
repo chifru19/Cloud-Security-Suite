@@ -71,3 +71,18 @@ Reaching a fully automated green pipeline required extensive debugging, pipeline
 ### 1. Start the Environment
 ```bash
 docker-compose up -d
+2. Trigger a Manual Scan
+Bash
+docker-compose run security-auditor python analyze.py
+3. View the Dashboard
+Navigate to http://localhost:8501 inside your web browser.
+
+📩 Contact & Portfolio
+Website: frankfru.com
+
+GitHub: chifru19
+
+LinkedIn: https://www.linkedin.com/in/frank-fru/
+
+📄 License
+This project is licensed under the MIT License.
