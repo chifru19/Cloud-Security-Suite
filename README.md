@@ -24,6 +24,18 @@ An automated security auditing and remediation system for AWS S3 (simulated via 
 
 ---
 
+## 📊 Pipeline & Analytics Visualization
+
+### CI/CD Pipeline Status
+![Pipeline Success Status](pipeline_success.jpg.png)
+
+### Network Forensics Analytics
+| Protocol Distribution | Top Talkers Matrix |
+| :---: | :---: |
+| ![Protocol Distribution](protocol_distribution.png) | ![Top Talkers](top_talkers.png) |
+
+---
+
 ## 🛠️ Tech Stack
 
 * **Cloud Simulation:** LocalStack (AWS Simulation)
@@ -71,6 +83,7 @@ Reaching a fully automated green pipeline required extensive debugging, pipeline
 ### 1. Start the Environment
 ```bash
 docker-compose up -d
+
 2. Trigger a Manual Scan
 Bash
 docker-compose run security-auditor python analyze.py
