@@ -47,4 +47,4 @@ Website: frankfru.com
 
 GitHub: chifru19
 
-LinkedIn: [Add Your Link Here]
+LinkedIn: [https://www.linkedin.com/feed/]
