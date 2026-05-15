@@ -74,7 +74,7 @@ Reaching a fully automated green pipeline required extensive debugging, pipeline
 
 ### 3. CI/CD Workflow Stability & Scanning Fixes (Commits #11 - #16)
 * **The Challenge:** The GitHub Actions workflow (`cloud-security.yml`) initially encountered runner failures, environment mismatches, and execution errors during automated code evaluation.
-* **The Fix:** Analyzed logs line-by-line to adjust the CI pipeline sequencing. Refactored the workflow file to isolate linting, stabilize dependencies, and logically order security analysis tools so that misconfigurations in Terraform or Docker layers are blocked *before* deployment actions can trigger.
+* **The Fix:** Analyzed logs line-by-line to adjust the CI pipeline sequencing. Refactored the workflow file to isolate linter phases, stabilize dependencies, and logically order security analysis tools so that misconfigurations in Terraform or Docker layers are blocked *before* deployment actions can trigger.
 
 ---
 
@@ -83,7 +83,6 @@ Reaching a fully automated green pipeline required extensive debugging, pipeline
 ### 1. Start the Environment
 ```bash
 docker-compose up -d
-
 2. Trigger a Manual Scan
 Bash
 docker-compose run security-auditor python analyze.py
